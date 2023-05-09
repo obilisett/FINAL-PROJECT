@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system>
+	<pattern name="Factory Method">
+		<instance>
+			<role name="Creator" element="com.alipay.sofa.ark.spi.archive.Archive" />
+			<role name="FactoryMethod()" element="com.alipay.sofa.ark.spi.archive.Archive::getNestedArchive(com.alipay.sofa.ark.spi.archive.Archive$Entry):com.alipay.sofa.ark.spi.archive.Archive" />
+		</instance>
+		<instance>
+			<role name="Creator" element="com.alipay.sofa.ark.spi.archive.ExecutableArchive" />
+			<role name="FactoryMethod()" element="com.alipay.sofa.ark.spi.archive.ExecutableArchive::getContainerArchive():com.alipay.sofa.ark.spi.archive.ContainerArchive" />
+		</instance>
+		<instance>
+			<role name="Creator" element="com.alipay.sofa.ark.spi.service.biz.BizFactoryService" />
+			<role name="FactoryMethod()" element="com.alipay.sofa.ark.spi.service.biz.BizFactoryService::createBiz(com.alipay.sofa.ark.spi.archive.BizArchive):com.alipay.sofa.ark.spi.model.Biz" />
+			<role name="FactoryMethod()" element="com.alipay.sofa.ark.spi.service.biz.BizFactoryService::createEmbedMasterBiz(java.lang.ClassLoader):com.alipay.sofa.ark.spi.model.Biz" />
+		</instance>
+		<instance>
+			<role name="Creator" element="com.alipay.sofa.ark.spi.service.plugin.PluginFactoryService" />
+			<role name="FactoryMethod()" element="com.alipay.sofa.ark.spi.service.plugin.PluginFactoryService::createPlugin(com.alipay.sofa.ark.spi.archive.PluginArchive):com.alipay.sofa.ark.spi.model.Plugin" />
+			<role name="FactoryMethod()" element="com.alipay.sofa.ark.spi.service.plugin.PluginFactoryService::createPlugin(com.alipay.sofa.ark.spi.archive.PluginArchive, java.net.URL[], java.util.Set):com.alipay.sofa.ark.spi.model.Plugin" />
+			<role name="FactoryMethod()" element="com.alipay.sofa.ark.spi.service.plugin.PluginFactoryService::createEmbedPlugin(com.alipay.sofa.ark.spi.archive.PluginArchive, java.lang.ClassLoader):com.alipay.sofa.ark.spi.model.Plugin" />
+		</instance>
+		<instance>
+			<role name="Creator" element="com.alipay.sofa.ark.spi.service.registry.RegistryService" />
+			<role name="FactoryMethod()" element="com.alipay.sofa.ark.spi.service.registry.RegistryService::publishService(, T, java.lang.String, com.alipay.sofa.ark.spi.registry.ServiceProvider):com.alipay.sofa.ark.spi.registry.ServiceReference" />
+		</instance>
+		<instance>
+			<role name="Creator" element="com.alipay.sofa.ark.loader.data.RandomAccessData" />
+			<role name="FactoryMethod()" element="com.alipay.sofa.ark.loader.data.RandomAccessData::getSubsection(long, long):com.alipay.sofa.ark.loader.data.RandomAccessData" />
+		</instance>
+	</pattern>
+	<pattern name="Prototype" />
+	<pattern name="Singleton">
+		<instance>
+			<role name="Singleton" element="com.alipay.sofa.ark.loader.jar.JarURLConnection" />
+			<role name="uniqueInstance" element="com.alipay.sofa.ark.loader.jar.JarURLConnection::NOT_FOUND_CONNECTION:com.alipay.sofa.ark.loader.jar.JarURLConnection" />
+		</instance>
+		<instance>
+			<role name="Singleton" element="com.alipay.sofa.ark.springboot.loader.CachedLaunchedURLClassLoader$LoadClassResult" />
+			<role name="uniqueInstance" element="com.alipay.sofa.ark.springboot.loader.CachedLaunchedURLClassLoader$LoadClassResult::NOT_FOUND:com.alipay.sofa.ark.springboot.loader.CachedLaunchedURLClassLoader$LoadClassResult" />
+		</instance>
+	</pattern>
+	<pattern name="(Object)Adapter">
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.container.session.NettyTelnetServer" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.session.StandardTelnetServerImpl" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.session.StandardTelnetServerImpl::nettyTelnetServer:com.alipay.sofa.ark.container.session.NettyTelnetServer" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.session.StandardTelnetServerImpl::run():void" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.session.StandardTelnetServerImpl::shutdown():void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.extension.Extension" />
+			<role name="Adapter" element="com.alipay.sofa.ark.spi.service.extension.ExtensionClass" />
+			<role name="adaptee" element="com.alipay.sofa.ark.spi.service.extension.ExtensionClass::extension:com.alipay.sofa.ark.spi.service.extension.Extension" />
+			<role name="Request()" element="com.alipay.sofa.ark.spi.service.extension.ExtensionClass::getPriority():int" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.loader.jar.AsciiBytes" />
+			<role name="Adapter" element="com.alipay.sofa.ark.loader.jar.CentralDirectoryFileHeader" />
+			<role name="adaptee" element="com.alipay.sofa.ark.loader.jar.CentralDirectoryFileHeader::name:com.alipay.sofa.ark.loader.jar.AsciiBytes" />
+			<role name="Request()" element="com.alipay.sofa.ark.loader.jar.CentralDirectoryFileHeader::hasName(java.lang.String, java.lang.String):boolean" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.archive.Archive" />
+			<role name="Adapter" element="com.alipay.sofa.ark.loader.ExecutableArkBizJar" />
+			<role name="adaptee" element="com.alipay.sofa.ark.loader.ExecutableArkBizJar::archive:com.alipay.sofa.ark.spi.archive.Archive" />
+			<role name="Request()" element="com.alipay.sofa.ark.loader.ExecutableArkBizJar::getPluginArchives():java.util.List" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.loader.jar.JarFile" />
+			<role name="Adapter" element="com.alipay.sofa.ark.loader.archive.JarFileArchive" />
+			<role name="adaptee" element="com.alipay.sofa.ark.loader.archive.JarFileArchive::jarFile:com.alipay.sofa.ark.loader.jar.JarFile" />
+			<role name="Request()" element="com.alipay.sofa.ark.loader.archive.JarFileArchive::getUrl():java.net.URL" />
+			<role name="Request()" element="com.alipay.sofa.ark.loader.archive.JarFileArchive::getManifest():java.util.jar.Manifest" />
+			<role name="Request()" element="com.alipay.sofa.ark.loader.archive.JarFileArchive::getInputStream(java.util.zip.ZipEntry):java.io.InputStream" />
+			<role name="Request()" element="com.alipay.sofa.ark.loader.archive.JarFileArchive::getNestedArchive(com.alipay.sofa.ark.spi.archive.Archive$Entry):com.alipay.sofa.ark.spi.archive.Archive" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.classloader.ClassLoaderHook" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::bizClassLoaderHook:com.alipay.sofa.ark.spi.service.classloader.ClassLoaderHook" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::preLoadClass(java.lang.String):java.lang.Class" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::postLoadClass(java.lang.String):java.lang.Class" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::preFindResource(java.lang.String):java.net.URL" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::postFindResource(java.lang.String):java.net.URL" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::preFindResources(java.lang.String):java.util.Enumeration" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::postFindResources(java.lang.String):java.util.Enumeration" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.classloader.ClassLoaderHook" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::pluginClassLoaderHook:com.alipay.sofa.ark.spi.service.classloader.ClassLoaderHook" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::preLoadClass(java.lang.String):java.lang.Class" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::postLoadClass(java.lang.String):java.lang.Class" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::preFindResource(java.lang.String):java.net.URL" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::postFindResource(java.lang.String):java.net.URL" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::preFindResources(java.lang.String):java.util.Enumeration" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::postFindResources(java.lang.String):java.util.Enumeration" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.PluginActivator" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.model.PluginModel" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.model.PluginModel::pluginActivator:com.alipay.sofa.ark.spi.service.PluginActivator" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.model.PluginModel::start():void" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.model.PluginModel::stop():void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.classloader.ClassLoaderService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.pipeline.DeployPluginStage" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.pipeline.DeployPluginStage::classloaderService:com.alipay.sofa.ark.spi.service.classloader.ClassLoaderService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.DeployPluginStage::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.plugin.PluginDeployService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.pipeline.DeployPluginStage" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.pipeline.DeployPluginStage::pluginDeployService:com.alipay.sofa.ark.spi.service.plugin.PluginDeployService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.DeployPluginStage::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.biz.BizDeployService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.pipeline.DeployBizStage" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.pipeline.DeployBizStage::bizDeployService:com.alipay.sofa.ark.spi.service.biz.BizDeployService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.DeployBizStage::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.biz.BizDeployer" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.service.biz.BizDeployServiceImpl" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.service.biz.BizDeployServiceImpl::bizDeployer:com.alipay.sofa.ark.spi.service.biz.BizDeployer" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.biz.BizDeployServiceImpl::deploy(java.lang.String[]):void" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.biz.BizDeployServiceImpl::unDeploy():void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl::pluginManagerService:com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl::prepareExportClassAndResourceCache():void" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl::isClassInImport(java.lang.String, java.lang.String):boolean" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl::isResourceInImport(java.lang.String, java.lang.String):boolean" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl::getPluginClassLoader(java.lang.String):java.lang.ClassLoader" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.service.plugin.PluginDeployServiceImpl" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.service.plugin.PluginDeployServiceImpl::pluginManagerService:com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.plugin.PluginDeployServiceImpl::deploy():void" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.plugin.PluginDeployServiceImpl::unDeploy():void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.registry.RegistryService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.service.biz.BizDeployServiceImpl" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.service.biz.BizDeployServiceImpl::registryService:com.alipay.sofa.ark.spi.service.registry.RegistryService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.biz.BizDeployServiceImpl::deploy(java.lang.String[]):void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.registry.RegistryService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.service.event.EventAdminServiceImpl" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.service.event.EventAdminServiceImpl::registryService:com.alipay.sofa.ark.spi.service.registry.RegistryService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.event.EventAdminServiceImpl::sendEvent(com.alipay.sofa.ark.spi.event.ArkEvent):void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::bizManagerService:com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::preLoadClass(java.lang.String):java.lang.Class" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::postLoadClass(java.lang.String):java.lang.Class" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::preFindResource(java.lang.String):java.net.URL" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::postFindResource(java.lang.String):java.net.URL" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::preFindResources(java.lang.String):java.util.Enumeration" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::postFindResources(java.lang.String):java.util.Enumeration" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.registry.RegistryService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.model.PluginContextImpl" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.model.PluginContextImpl::registryService:com.alipay.sofa.ark.spi.service.registry.RegistryService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.model.PluginContextImpl::publishService(, T, java.lang.String):com.alipay.sofa.ark.spi.registry.ServiceReference" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.model.PluginContextImpl::referenceService(, java.lang.String):com.alipay.sofa.ark.spi.registry.ServiceReference" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.model.PluginContextImpl::referenceServices(com.alipay.sofa.ark.spi.registry.ServiceFilter):java.util.List" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.model.PluginContextImpl" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.model.PluginContextImpl::pluginManagerService:com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.model.PluginContextImpl::getPlugin(java.lang.String):com.alipay.sofa.ark.spi.model.Plugin" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.model.PluginContextImpl::getPluginNames():java.util.Set" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.biz.BizFactoryService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::bizFactoryService:com.alipay.sofa.ark.spi.service.biz.BizFactoryService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::bizManagerService:com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.event.EventAdminService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.pipeline.DeployBizStage" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.pipeline.DeployBizStage::eventAdminService:com.alipay.sofa.ark.spi.service.event.EventAdminService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.DeployBizStage::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.event.EventAdminService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.pipeline.FinishStartupStage" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.pipeline.FinishStartupStage::eventAdminService:com.alipay.sofa.ark.spi.service.event.EventAdminService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.FinishStartupStage::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.plugin.PluginFactoryService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::pluginFactoryService:com.alipay.sofa.ark.spi.service.plugin.PluginFactoryService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.web.EmbeddedServerService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.web.embed.WebPluginActivator" />
+			<role name="adaptee" element="com.alipay.sofa.ark.web.embed.WebPluginActivator::embeddedServerService:com.alipay.sofa.ark.spi.web.EmbeddedServerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.web.embed.WebPluginActivator::stop(com.alipay.sofa.ark.spi.model.PluginContext):void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.injection.InjectionService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.service.registry.RegistryServiceImpl" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.service.registry.RegistryServiceImpl::injectionService:com.alipay.sofa.ark.spi.service.injection.InjectionService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.registry.RegistryServiceImpl::publishService(, T, java.lang.String, com.alipay.sofa.ark.spi.registry.ServiceProvider):com.alipay.sofa.ark.spi.registry.ServiceReference" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::pluginManagerService:com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::preLoadClass(java.lang.String):java.lang.Class" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::postLoadClass(java.lang.String):java.lang.Class" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::preFindResource(java.lang.String):java.net.URL" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::postFindResource(java.lang.String):java.net.URL" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::preFindResources(java.lang.String):java.util.Enumeration" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::postFindResources(java.lang.String):java.util.Enumeration" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::pluginManagerService:com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.model.Plugin" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.model.PluginContextImpl" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.model.PluginContextImpl::plugin:com.alipay.sofa.ark.spi.model.Plugin" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.model.PluginContextImpl::getClassLoader():java.lang.ClassLoader" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl::bizManagerService:com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl::getBizClassLoader(java.lang.String):java.lang.ClassLoader" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl::isDeniedImportClass(java.lang.String, java.lang.String):boolean" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl::isDeniedImportResource(java.lang.String, java.lang.String):boolean" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.service.biz.DefaultBizDeployer" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.service.biz.DefaultBizDeployer::bizManagerService:com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.biz.DefaultBizDeployer::deploy():void" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.biz.DefaultBizDeployer::unDeploy():void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.service.extension.ExtensionLoaderServiceImpl" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.service.extension.ExtensionLoaderServiceImpl::bizManagerService:com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.extension.ExtensionLoaderServiceImpl::getExtensionContributorFromArkBiz(, java.lang.String, java.lang.String):java.lang.Object" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Adapter" element="com.alipay.sofa.ark.container.service.extension.ExtensionLoaderServiceImpl" />
+			<role name="adaptee" element="com.alipay.sofa.ark.container.service.extension.ExtensionLoaderServiceImpl::pluginManagerService:com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.extension.ExtensionLoaderServiceImpl::getExtensionContributorFromArkPlugin(, java.lang.String, java.lang.String):java.lang.Object" />
+		</instance>
+	</pattern>
+	<pattern name="Command" />
+	<pattern name="Composite">
+		<instance>
+			<role name="Component" element="com.alipay.sofa.ark.spi.pipeline.PipelineStage" />
+			<role name="Composite" element="com.alipay.sofa.ark.container.pipeline.StandardPipeline" />
+			<role name="Operation()" element="com.alipay.sofa.ark.container.pipeline.StandardPipeline::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+	</pattern>
+	<pattern name="Decorator">
+		<instance>
+			<role name="Component" element="com.alipay.sofa.ark.spi.archive.Archive" />
+			<role name="Decorator" element="com.alipay.sofa.ark.loader.JarBizArchive" />
+			<role name="component" element="com.alipay.sofa.ark.loader.JarBizArchive::archive:com.alipay.sofa.ark.spi.archive.Archive" />
+			<role name="Operation()" element="com.alipay.sofa.ark.loader.JarBizArchive::getUrl():java.net.URL" />
+			<role name="Operation()" element="com.alipay.sofa.ark.loader.JarBizArchive::getManifest():java.util.jar.Manifest" />
+			<role name="Operation()" element="com.alipay.sofa.ark.loader.JarBizArchive::getInputStream(java.util.zip.ZipEntry):java.io.InputStream" />
+			<role name="Operation()" element="com.alipay.sofa.ark.loader.JarBizArchive::getNestedArchive(com.alipay.sofa.ark.spi.archive.Archive$Entry):com.alipay.sofa.ark.spi.archive.Archive" />
+		</instance>
+		<instance>
+			<role name="Component" element="com.alipay.sofa.ark.spi.archive.Archive" />
+			<role name="Decorator" element="com.alipay.sofa.ark.loader.JarContainerArchive" />
+			<role name="component" element="com.alipay.sofa.ark.loader.JarContainerArchive::archive:com.alipay.sofa.ark.spi.archive.Archive" />
+			<role name="Operation()" element="com.alipay.sofa.ark.loader.JarContainerArchive::getUrl():java.net.URL" />
+			<role name="Operation()" element="com.alipay.sofa.ark.loader.JarContainerArchive::getManifest():java.util.jar.Manifest" />
+			<role name="Operation()" element="com.alipay.sofa.ark.loader.JarContainerArchive::getNestedArchive(com.alipay.sofa.ark.spi.archive.Archive$Entry):com.alipay.sofa.ark.spi.archive.Archive" />
+			<role name="Operation()" element="com.alipay.sofa.ark.loader.JarContainerArchive::getInputStream(java.util.zip.ZipEntry):java.io.InputStream" />
+		</instance>
+		<instance>
+			<role name="Component" element="com.alipay.sofa.ark.spi.archive.Archive" />
+			<role name="Decorator" element="com.alipay.sofa.ark.loader.JarPluginArchive" />
+			<role name="component" element="com.alipay.sofa.ark.loader.JarPluginArchive::archive:com.alipay.sofa.ark.spi.archive.Archive" />
+			<role name="Operation()" element="com.alipay.sofa.ark.loader.JarPluginArchive::getUrl():java.net.URL" />
+			<role name="Operation()" element="com.alipay.sofa.ark.loader.JarPluginArchive::getManifest():java.util.jar.Manifest" />
+			<role name="Operation()" element="com.alipay.sofa.ark.loader.JarPluginArchive::getInputStream(java.util.zip.ZipEntry):java.io.InputStream" />
+			<role name="Operation()" element="com.alipay.sofa.ark.loader.JarPluginArchive::getNestedArchive(com.alipay.sofa.ark.spi.archive.Archive$Entry):com.alipay.sofa.ark.spi.archive.Archive" />
+		</instance>
+	</pattern>
+	<pattern name="Observer" />
+	<pattern name="State">
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.spi.service.extension.ExtensionClass" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.extension.Extensible" />
+			<role name="state" element="com.alipay.sofa.ark.spi.service.extension.ExtensionClass::extensible:com.alipay.sofa.ark.spi.service.extension.Extensible" />
+			<role name="Request()" element="com.alipay.sofa.ark.spi.service.extension.ExtensionClass::getObject():java.lang.Object" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.spi.service.extension.ExtensionClass" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.extension.Extension" />
+			<role name="state" element="com.alipay.sofa.ark.spi.service.extension.ExtensionClass::extension:com.alipay.sofa.ark.spi.service.extension.Extension" />
+			<role name="Request()" element="com.alipay.sofa.ark.spi.service.extension.ExtensionClass::getPriority():int" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.loader.jar.JarFile" />
+			<role name="State" element="com.alipay.sofa.ark.loader.data.RandomAccessData" />
+			<role name="state" element="com.alipay.sofa.ark.loader.jar.JarFile::data:com.alipay.sofa.ark.loader.data.RandomAccessData" />
+			<role name="Request()" element="com.alipay.sofa.ark.loader.jar.JarFile::size():int" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.loader.ExecutableArkBizJar" />
+			<role name="State" element="com.alipay.sofa.ark.spi.archive.Archive" />
+			<role name="state" element="com.alipay.sofa.ark.loader.ExecutableArkBizJar::archive:com.alipay.sofa.ark.spi.archive.Archive" />
+			<role name="Request()" element="com.alipay.sofa.ark.loader.ExecutableArkBizJar::getUrl():java.net.URL" />
+			<role name="Request()" element="com.alipay.sofa.ark.loader.ExecutableArkBizJar::getManifest():java.util.jar.Manifest" />
+			<role name="Request()" element="com.alipay.sofa.ark.loader.ExecutableArkBizJar::getInputStream(java.util.zip.ZipEntry):java.io.InputStream" />
+			<role name="Request()" element="com.alipay.sofa.ark.loader.ExecutableArkBizJar::getNestedArchive(com.alipay.sofa.ark.spi.archive.Archive$Entry):com.alipay.sofa.ark.spi.archive.Archive" />
+			<role name="Request()" element="com.alipay.sofa.ark.loader.ExecutableArkBizJar::getPluginArchives():java.util.List" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.api.ArkClient" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="state" element="com.alipay.sofa.ark.api.ArkClient::bizManagerService:com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.api.ArkClient::installBiz(java.io.File, java.lang.String[]):com.alipay.sofa.ark.api.ClientResponse" />
+			<role name="Request()" element="com.alipay.sofa.ark.api.ArkClient::uninstallBiz(java.lang.String, java.lang.String):com.alipay.sofa.ark.api.ClientResponse" />
+			<role name="Request()" element="com.alipay.sofa.ark.api.ArkClient::checkBiz(java.lang.String, java.lang.String):com.alipay.sofa.ark.api.ClientResponse" />
+			<role name="Request()" element="com.alipay.sofa.ark.api.ArkClient::switchBiz(java.lang.String, java.lang.String):com.alipay.sofa.ark.api.ClientResponse" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.springboot.web.ArkTomcatServletWebServerFactory" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="state" element="com.alipay.sofa.ark.springboot.web.ArkTomcatServletWebServerFactory::bizManagerService:com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.springboot.web.ArkTomcatServletWebServerFactory::getContextPath():java.lang.String" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.classloader.ClassLoaderHook" />
+			<role name="state" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::bizClassLoaderHook:com.alipay.sofa.ark.spi.service.classloader.ClassLoaderHook" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::preLoadClass(java.lang.String):java.lang.Class" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::postLoadClass(java.lang.String):java.lang.Class" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::preFindResource(java.lang.String):java.net.URL" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::postFindResource(java.lang.String):java.net.URL" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::preFindResources(java.lang.String):java.util.Enumeration" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::postFindResources(java.lang.String):java.util.Enumeration" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.classloader.ClassLoaderHook" />
+			<role name="state" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::pluginClassLoaderHook:com.alipay.sofa.ark.spi.service.classloader.ClassLoaderHook" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::preLoadClass(java.lang.String):java.lang.Class" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::postLoadClass(java.lang.String):java.lang.Class" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::preFindResource(java.lang.String):java.net.URL" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::postFindResource(java.lang.String):java.net.URL" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::preFindResources(java.lang.String):java.util.Enumeration" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::postFindResources(java.lang.String):java.util.Enumeration" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.model.PluginModel" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.PluginActivator" />
+			<role name="state" element="com.alipay.sofa.ark.container.model.PluginModel::pluginActivator:com.alipay.sofa.ark.spi.service.PluginActivator" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.model.PluginModel::start():void" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.model.PluginModel::stop():void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.api.ArkClient" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.biz.BizFactoryService" />
+			<role name="state" element="com.alipay.sofa.ark.api.ArkClient::bizFactoryService:com.alipay.sofa.ark.spi.service.biz.BizFactoryService" />
+			<role name="Request()" element="com.alipay.sofa.ark.api.ArkClient::installBiz(java.io.File, java.lang.String[]):com.alipay.sofa.ark.api.ClientResponse" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.registry.PluginServiceProvider" />
+			<role name="State" element="com.alipay.sofa.ark.spi.model.Plugin" />
+			<role name="state" element="com.alipay.sofa.ark.container.registry.PluginServiceProvider::plugin:com.alipay.sofa.ark.spi.model.Plugin" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.registry.PluginServiceProvider::getServiceProviderDesc():java.lang.String" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.registry.PluginServiceProvider::getPriority():int" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.registry.PluginServiceProvider::getPluginName():java.lang.String" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.pipeline.DeployPluginStage" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.classloader.ClassLoaderService" />
+			<role name="state" element="com.alipay.sofa.ark.container.pipeline.DeployPluginStage::classloaderService:com.alipay.sofa.ark.spi.service.classloader.ClassLoaderService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.DeployPluginStage::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.pipeline.DeployPluginStage" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.plugin.PluginDeployService" />
+			<role name="state" element="com.alipay.sofa.ark.container.pipeline.DeployPluginStage::pluginDeployService:com.alipay.sofa.ark.spi.service.plugin.PluginDeployService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.DeployPluginStage::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.pipeline.DeployBizStage" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.biz.BizDeployService" />
+			<role name="state" element="com.alipay.sofa.ark.container.pipeline.DeployBizStage::bizDeployService:com.alipay.sofa.ark.spi.service.biz.BizDeployService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.DeployBizStage::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.DeployBizStage::processStaticBiz(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.service.biz.BizDeployServiceImpl" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.biz.BizDeployer" />
+			<role name="state" element="com.alipay.sofa.ark.container.service.biz.BizDeployServiceImpl::bizDeployer:com.alipay.sofa.ark.spi.service.biz.BizDeployer" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.biz.BizDeployServiceImpl::deploy(java.lang.String[]):void" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.biz.BizDeployServiceImpl::unDeploy():void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="state" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl::pluginManagerService:com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl::prepareExportClassAndResourceCache():void" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl::isClassInImport(java.lang.String, java.lang.String):boolean" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl::isResourceInImport(java.lang.String, java.lang.String):boolean" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl::getPluginClassLoader(java.lang.String):java.lang.ClassLoader" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.service.plugin.PluginDeployServiceImpl" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="state" element="com.alipay.sofa.ark.container.service.plugin.PluginDeployServiceImpl::pluginManagerService:com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.plugin.PluginDeployServiceImpl::deploy():void" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.plugin.PluginDeployServiceImpl::unDeploy():void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="state" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::bizManagerService:com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::preLoadClass(java.lang.String):java.lang.Class" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::postLoadClass(java.lang.String):java.lang.Class" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::preFindResource(java.lang.String):java.net.URL" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::postFindResource(java.lang.String):java.net.URL" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::preFindResources(java.lang.String):java.util.Enumeration" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.BizClassLoader::postFindResources(java.lang.String):java.util.Enumeration" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.api.ArkClient" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.event.EventAdminService" />
+			<role name="state" element="com.alipay.sofa.ark.api.ArkClient::eventAdminService:com.alipay.sofa.ark.spi.service.event.EventAdminService" />
+			<role name="Request()" element="com.alipay.sofa.ark.api.ArkClient::switchBiz(java.lang.String, java.lang.String):com.alipay.sofa.ark.api.ClientResponse" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.springboot.processor.ArkEventHandlerProcessor" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.event.EventAdminService" />
+			<role name="state" element="com.alipay.sofa.ark.springboot.processor.ArkEventHandlerProcessor::eventAdminService:com.alipay.sofa.ark.spi.service.event.EventAdminService" />
+			<role name="Request()" element="com.alipay.sofa.ark.springboot.processor.ArkEventHandlerProcessor::postProcessAfterInitialization(java.lang.Object, java.lang.String):java.lang.Object" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.springboot.web.ArkTomcatServletWebServerFactory" />
+			<role name="State" element="com.alipay.sofa.ark.spi.web.EmbeddedServerService" />
+			<role name="state" element="com.alipay.sofa.ark.springboot.web.ArkTomcatServletWebServerFactory::embeddedServerService:com.alipay.sofa.ark.spi.web.EmbeddedServerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.springboot.web.ArkTomcatServletWebServerFactory::getWebServer(org.springframework.boot.web.servlet.ServletContextInitializer[]):org.springframework.boot.web.server.WebServer" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.model.PluginContextImpl" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="state" element="com.alipay.sofa.ark.container.model.PluginContextImpl::pluginManagerService:com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.model.PluginContextImpl::getPlugin(java.lang.String):com.alipay.sofa.ark.spi.model.Plugin" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.model.PluginContextImpl::getPluginNames():java.util.Set" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.biz.BizFactoryService" />
+			<role name="state" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::bizFactoryService:com.alipay.sofa.ark.spi.service.biz.BizFactoryService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::processEmbed(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::processStaticBizFromClasspath(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="state" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::bizManagerService:com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::processEmbed(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::processStaticBizFromClasspath(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.pipeline.DeployBizStage" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.event.EventAdminService" />
+			<role name="state" element="com.alipay.sofa.ark.container.pipeline.DeployBizStage::eventAdminService:com.alipay.sofa.ark.spi.service.event.EventAdminService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.DeployBizStage::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.pipeline.FinishStartupStage" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.event.EventAdminService" />
+			<role name="state" element="com.alipay.sofa.ark.container.pipeline.FinishStartupStage::eventAdminService:com.alipay.sofa.ark.spi.service.event.EventAdminService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.FinishStartupStage::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.plugin.PluginFactoryService" />
+			<role name="state" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::pluginFactoryService:com.alipay.sofa.ark.spi.service.plugin.PluginFactoryService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::processEmbed(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.web.embed.WebPluginActivator" />
+			<role name="State" element="com.alipay.sofa.ark.spi.web.EmbeddedServerService" />
+			<role name="state" element="com.alipay.sofa.ark.web.embed.WebPluginActivator::embeddedServerService:com.alipay.sofa.ark.spi.web.EmbeddedServerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.web.embed.WebPluginActivator::stop(com.alipay.sofa.ark.spi.model.PluginContext):void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.service.registry.RegistryServiceImpl" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.injection.InjectionService" />
+			<role name="state" element="com.alipay.sofa.ark.container.service.registry.RegistryServiceImpl::injectionService:com.alipay.sofa.ark.spi.service.injection.InjectionService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.registry.RegistryServiceImpl::publishService(, T, java.lang.String, com.alipay.sofa.ark.spi.registry.ServiceProvider):com.alipay.sofa.ark.spi.registry.ServiceReference" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="state" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::pluginManagerService:com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::preLoadClass(java.lang.String):java.lang.Class" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::postLoadClass(java.lang.String):java.lang.Class" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::preFindResource(java.lang.String):java.net.URL" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::postFindResource(java.lang.String):java.net.URL" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::preFindResources(java.lang.String):java.util.Enumeration" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.PluginClassLoader::postFindResources(java.lang.String):java.util.Enumeration" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.loader.jar.JarFileEntries" />
+			<role name="State" element="com.alipay.sofa.ark.loader.jar.JarEntryFilter" />
+			<role name="state" element="com.alipay.sofa.ark.loader.jar.JarFileEntries::filter:com.alipay.sofa.ark.loader.jar.JarEntryFilter" />
+			<role name="Request()" element="com.alipay.sofa.ark.loader.jar.JarFileEntries::applyFilter(com.alipay.sofa.ark.loader.jar.AsciiBytes):com.alipay.sofa.ark.loader.jar.AsciiBytes" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="state" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::pluginManagerService:com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::process(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.pipeline.HandleArchiveStage::processEmbed(com.alipay.sofa.ark.spi.pipeline.PipelineContext):void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.model.PluginContextImpl" />
+			<role name="State" element="com.alipay.sofa.ark.spi.model.Plugin" />
+			<role name="state" element="com.alipay.sofa.ark.container.model.PluginContextImpl::plugin:com.alipay.sofa.ark.spi.model.Plugin" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.model.PluginContextImpl::getClassLoader():java.lang.ClassLoader" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="state" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl::bizManagerService:com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl::getBizClassLoader(java.lang.String):java.lang.ClassLoader" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl::isDeniedImportClass(java.lang.String, java.lang.String):boolean" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.classloader.ClassLoaderServiceImpl::isDeniedImportResource(java.lang.String, java.lang.String):boolean" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.service.biz.BizFactoryServiceImpl" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="state" element="com.alipay.sofa.ark.container.service.biz.BizFactoryServiceImpl::pluginManagerService:com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.biz.BizFactoryServiceImpl::getPluginURLs():java.net.URL[]" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.service.biz.DefaultBizDeployer" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="state" element="com.alipay.sofa.ark.container.service.biz.DefaultBizDeployer::bizManagerService:com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.biz.DefaultBizDeployer::deploy():void" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.biz.DefaultBizDeployer::unDeploy():void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.service.extension.ExtensionLoaderServiceImpl" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="state" element="com.alipay.sofa.ark.container.service.extension.ExtensionLoaderServiceImpl::bizManagerService:com.alipay.sofa.ark.spi.service.biz.BizManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.extension.ExtensionLoaderServiceImpl::getExtensionContributorFromArkBiz(, java.lang.String, java.lang.String):java.lang.Object" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.alipay.sofa.ark.container.service.extension.ExtensionLoaderServiceImpl" />
+			<role name="State" element="com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="state" element="com.alipay.sofa.ark.container.service.extension.ExtensionLoaderServiceImpl::pluginManagerService:com.alipay.sofa.ark.spi.service.plugin.PluginManagerService" />
+			<role name="Request()" element="com.alipay.sofa.ark.container.service.extension.ExtensionLoaderServiceImpl::getExtensionContributorFromArkPlugin(, java.lang.String, java.lang.String):java.lang.Object" />
+		</instance>
+	</pattern>
+	<pattern name="Strategy" />
+	<pattern name="Bridge">
+		<instance>
+			<role name="Abstraction" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader" />
+			<role name="Implementor" element="com.alipay.sofa.ark.spi.service.classloader.ClassLoaderService" />
+			<role name="implementor" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader::classloaderService:com.alipay.sofa.ark.spi.service.classloader.ClassLoaderService" />
+			<role name="Operation()" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader::resolveJDKClass(java.lang.String):java.lang.Class" />
+			<role name="Operation()" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader::resolveExportClass(java.lang.String):java.lang.Class" />
+			<role name="Operation()" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader::resolveArkClass(java.lang.String):java.lang.Class" />
+			<role name="Operation()" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader::resolveJavaAgentClass(java.lang.String):java.lang.Class" />
+			<role name="Operation()" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader::getExportResource(java.lang.String):java.net.URL" />
+			<role name="Operation()" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader::getJdkResource(java.lang.String):java.net.URL" />
+			<role name="Operation()" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader::getClassResource(java.lang.String):java.net.URL" />
+			<role name="Operation()" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader::getExportResources(java.lang.String):java.util.Enumeration" />
+			<role name="Operation()" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader::getJdkResources(java.lang.String):java.util.Enumeration" />
+		</instance>
+	</pattern>
+	<pattern name="Template Method">
+		<instance>
+			<role name="AbstractClass" element="com.alipay.sofa.ark.bootstrap.AbstractLauncher" />
+			<role name="TemplateMethod()" element="com.alipay.sofa.ark.bootstrap.AbstractLauncher::launch(java.lang.String[]):java.lang.Object" />
+			<role name="TemplateMethod()" element="com.alipay.sofa.ark.bootstrap.AbstractLauncher::launch(java.lang.String[], java.lang.String, java.lang.reflect.Method):java.lang.Object" />
+			<role name="TemplateMethod()" element="com.alipay.sofa.ark.bootstrap.AbstractLauncher::launch(java.lang.String, java.lang.Class):java.lang.Object" />
+			<role name="TemplateMethod()" element="com.alipay.sofa.ark.bootstrap.AbstractLauncher::getContainerArchive():com.alipay.sofa.ark.spi.archive.ContainerArchive" />
+			<role name="TemplateMethod()" element="com.alipay.sofa.ark.bootstrap.AbstractLauncher::createContainerClassLoader(com.alipay.sofa.ark.spi.archive.ContainerArchive):java.lang.ClassLoader" />
+		</instance>
+		<instance>
+			<role name="AbstractClass" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader" />
+			<role name="TemplateMethod()" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader::getResource(java.lang.String):java.net.URL" />
+			<role name="TemplateMethod()" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader::getResources(java.lang.String):java.util.Enumeration" />
+			<role name="TemplateMethod()" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader::resolveExportClass(java.lang.String):java.lang.Class" />
+			<role name="TemplateMethod()" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader::getExportResource(java.lang.String):java.net.URL" />
+			<role name="TemplateMethod()" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader::getClassResource(java.lang.String):java.net.URL" />
+			<role name="TemplateMethod()" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader::getExportResources(java.lang.String):java.util.Enumeration" />
+			<role name="TemplateMethod()" element="com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader::lambda$0(java.lang.String, boolean):com.alipay.sofa.ark.container.service.classloader.AbstractClasspathClassLoader$LoadClassResult" />
+		</instance>
+	</pattern>
+	<pattern name="Visitor" />
+	<pattern name="Proxy" />
+	<pattern name="Proxy2" />
+	<pattern name="Chain of Responsibility" />
+</system>
+
